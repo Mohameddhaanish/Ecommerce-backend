@@ -3,7 +3,7 @@ const { expressjwt: Dhaanish } = require("express-jwt");
 function authjwt() {
   const secret = process.env.SECRET_KEY;
   return Dhaanish({
-    secret,
+    secret: secret,
     algorithms: ["HS256"],
     isRevoked: isRevoked,
   }).unless({
