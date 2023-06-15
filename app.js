@@ -22,6 +22,7 @@ app.use("/api/products", products);
 app.use("/api/category", category);
 app.use("/api/user", user);
 app.use("/api/orders", orders);
+// app.use("api/orderitem", orderItem);
 app.use("/api/upload", upload);
 app.use("/public/uploads/", express.static(__dirname + "/public/uploads"));
 // app.use("/api/orderitem", orderItem);
@@ -29,7 +30,7 @@ app.use((req, res, next) => {
   res.status(404).send("Not Found Route");
   next();
 });
-app.listen(8081, () => {
-  console.log(`Server is running on http://localhost:8081`);
+app.listen(8082, () => {
+  console.log(`Server is running on http://localhost:8082`);
 });
 console.log(__dirname);
