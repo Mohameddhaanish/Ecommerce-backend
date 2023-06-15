@@ -13,6 +13,7 @@ const orders = require("./routes/orders");
 const upload = require("./routes/upload");
 // const orderItem = require("./routes/orderItem");
 const errorHandler = require("./helpers/error-handler");
+app.use(cors());
 app.use(express.static(path.join("public")));
 app.use(express.json());
 app.use(morgan("tiny"));
