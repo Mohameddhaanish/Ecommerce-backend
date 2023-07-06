@@ -14,7 +14,7 @@ const orders = require("./routes/orders");
 const upload = require("./routes/upload");
 // const orderItem = require("./routes/orderItem");
 const errorHandler = require("./helpers/error-handler");
-const port = 8082;
+
 app.use(cors());
 app.use(express.static(path.join("public")));
 app.use(express.json());
@@ -33,7 +33,7 @@ app.use((req, res, next) => {
   res.status(404).send("Not Found Route");
   next();
 });
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(8082, () => {
+  console.log(`Server is running on http://localhost:8082`);
 });
 console.log(__dirname);
