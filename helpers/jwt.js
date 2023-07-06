@@ -14,6 +14,7 @@ function authjwt() {
       { url: /\api\/category(.*)/, methods: ["GET", "OPTIONS"] },
       { url: "/api/user/login" },
       { url: "/api/user/register" },
+      { url: "/api/orders" },
     ],
   });
 }

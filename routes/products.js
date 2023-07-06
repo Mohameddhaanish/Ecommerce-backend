@@ -12,6 +12,7 @@ const file_mimetype = {
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const isValid = file_mimetype[file.mimetype];
+    console.log(file);
     let validationError = new Error("file type is not supported");
     if (isValid) {
       validationError = null;
@@ -25,20 +26,17 @@ const storage = multer.diskStorage({
   },
 });
 const fileSize = 2 * 1000 * 1000;
-const upload = multer({ storage: storage, limits: { fileSize: fileSize } });
+const upload = multer({ storage: storage, limits: fileSize });
 
 //CREATE NEW PRODUCT
 router.post("/", upload.single("image"), async (req, res) => {
   try {
-    const category = await Category.findById(req.body.category);
-    if (!category) {
-      res.status(404).send("Invalid category");
+    const files = req.file;
+    if (!files) {
+      res.status(400).send({ Message: "No image is attached" });
     }
-    const file = req.file;
-    if (!file) {
-      req.status(400).send({ Message: "No image is attached" });
-    }
-    const filename = file.filename;
+    const filename = files.filename;
+
     const createProducts = await Product.create({
       name: req.body.name,
       description: req.body.description,
@@ -162,11 +160,11 @@ router.get("/get/count", async (req, res) => {
 //GET CATEGORY BY QUERY IN URL PATH
 router.get("/get/category", async (req, res) => {
   let filter = {};
-  if (req.query.categories) {
-    filter = { category: req.query.categories.split(",") };
+  if (req.query.name) {
+    filter = { name: req.query.name.split(",") };
   }
   console.log(filter);
-  const products = await Product.find(filter).populate("category");
+  const products = await Product.find(filter);
   res.send(products);
 });
 
