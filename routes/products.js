@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     const finlename = file.originalname;
     const extension = file_mimetype[file.mimetype];
-    cb(null, `${finlename}-${Date.now()}.${extension}`);
+    cb(null, `${finlename}`);
   },
 });
 const fileSize = 2 * 1000 * 1000;
@@ -36,7 +36,7 @@ router.post("/", upload.single("image"), async (req, res) => {
 
     console.log(req.get("host"));
     console.log(
-      `${req.protocol}//${req.get("host")}/public/uploads/${filename}`
+      `${req.protocol}://${req.get("host")}/public/uploads/${filename}`
     );
 
     if (!files) {
@@ -47,7 +47,7 @@ router.post("/", upload.single("image"), async (req, res) => {
       name: req.body.name,
       description: req.body.description,
       richDescription: req.body.richDescription,
-      image: `${req.protocol}//${req.get("host")}/public/uploads/${filename}`, //${req.get("host")}
+      image: `${req.protocol}://${req.get("host")}/public/uploads/${filename}`, //${req.get("host")}
       brand: req.body.brand,
       price: req.body.price,
       category: req.body.category,
