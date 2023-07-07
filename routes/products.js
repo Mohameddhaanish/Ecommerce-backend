@@ -32,25 +32,28 @@ const upload = multer({ storage: storage, limits: fileSize });
 router.post("/", upload.single("image"), async (req, res) => {
   try {
     console.log(req.get("host"));
-    const files = req.file;
-    if (!files) {
-      res.status(400).send({ Message: "No image is attached" });
-    }
-    const filename = files.filename;
 
-    const createProducts = await Product.create({
-      name: req.body.name,
-      description: req.body.description,
-      richDescription: req.body.richDescription,
-      image: `${req.protocol}//${req.get("host")}/public/uploads/${filename}`, //${req.get("host")}
-      brand: req.body.brand,
-      price: req.body.price,
-      category: req.body.category,
-      countInStock: req.body.countInStock,
-      rating: req.body.rating,
-      isFeatured: req.body.isFeatured,
-    });
-    res.send(createProducts);
+    const files = req.file;
+    // if (!files) {
+    //   res.status(400).send({ Message: "No image is attached" });
+    // }
+    const filename = files.filename;
+    console.log(
+      `${req.protocol}//${req.get("host")}/public/uploads/${filename}`
+    );
+    // const createProducts = await Product.create({
+    //   name: req.body.name,
+    //   description: req.body.description,
+    //   richDescription: req.body.richDescription,
+    //   image: `${req.protocol}//${req.get("host")}/public/uploads/${filename}`, //${req.get("host")}
+    //   brand: req.body.brand,
+    //   price: req.body.price,
+    //   category: req.body.category,
+    //   countInStock: req.body.countInStock,
+    //   rating: req.body.rating,
+    //   isFeatured: req.body.isFeatured,
+    // });
+    // res.send(createProducts);
   } catch (err) {
     res.status(400).send({ err: err.message, success: false });
   }
