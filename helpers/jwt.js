@@ -10,11 +10,12 @@ function authjwt() {
     path: [
       //USING REGULAR EXPRESSION
       { url: /\public\/\uploads(.*)/, methods: ["GET", "OPTIONS"] },
-      { url: /\api\/products(.*)/, methods: ["GET", "OPTIONS"] },
+      // { url: /\api\/products(.*)/, methods: ["GET", "OPTIONS"] },
       { url: /\api\/category(.*)/, methods: ["GET", "OPTIONS"] },
       { url: "/api/user/login" },
       { url: "/api/user/register" },
       { url: "/api/orders" },
+      { url: "/api/products" },
     ],
   });
 }
