@@ -31,15 +31,17 @@ const upload = multer({ storage: storage, limits: fileSize });
 //CREATE NEW PRODUCT
 router.post("/", upload.single("image"), async (req, res) => {
   try {
+    const files = req.file;
+    const filename = files.filename;
+
     console.log(req.get("host"));
     console.log(
       `${req.protocol}//${req.get("host")}/public/uploads/${filename}`
     );
-    const files = req.file;
+
     if (!files) {
       res.status(400).send({ Message: "No image is attached" });
     }
-    const filename = files.filename;
 
     const createProducts = await Product.create({
       name: req.body.name,
